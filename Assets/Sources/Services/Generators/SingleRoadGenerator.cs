@@ -14,8 +14,8 @@ namespace Services.Generators
     public struct SingleRoadSettings
     {
         public int seed;
-        public float roadProbability;
-        public float spaceProbability;
+        public float[] roadDensity;
+        public float[] spaceDensity;
         public DensityTemplate[] roadTemplates;
         public DensityTemplate[] spaceTemplates;
     }
@@ -63,8 +63,8 @@ namespace Services.Generators
         {
             randomGenerator.Reset(settings.seed);
             singleRoad.TargetField = targetfield;
-            singleRoad.RoadProbability = settings.roadProbability;
-            singleRoad.SpaceProbability = settings.spaceProbability;
+            singleRoad.RoadDensity = settings.roadDensity;
+            singleRoad.SpaceDensity = settings.spaceDensity;
 
             IDictionary<ViewableResource, SpawningResource> spawningResources = new Dictionary<ViewableResource, SpawningResource>();
 

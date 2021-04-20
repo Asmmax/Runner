@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 02e2215fdedc3cc4abaa5962ea06b7f1, type: 3}
-  m_Name: SingleRoad
+  m_Name: FirstLevel
   m_EditorClassIdentifier: 
   lineCount: 5
   lineThickness: 2
@@ -18,8 +18,58 @@ MonoBehaviour:
   startSpeed: 5
   startDistance: -10
   seed: 0
-  roadProbability: 0.5
-  spaceProbability: 0.2
+  roadDensity:
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0.0000017806888
+        value: 0.5141506
+        inSlope: 0.48349276
+        outSlope: 0.48349276
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 0.9976425
+        inSlope: 0.48349276
+        outSlope: 0.48349276
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    stepCount: 100
+  spaceDensity:
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0.103775024
+        inSlope: 0.6957649
+        outSlope: 0.6957649
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.99998575
+        value: 0.79953
+        inSlope: 0.6957649
+        outSlope: 0.6957649
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    stepCount: 100
   roadTemplates:
   - density: 0.1
     template: {fileID: 11400000, guid: 7e200e6239dc3a44ba5c83117ab7e68b, type: 2}

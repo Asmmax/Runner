@@ -10,6 +10,13 @@ public struct DensityViewable
     public ViewableObject template;
 }
 
+[System.Serializable]
+public struct DensityCurve
+{
+    public AnimationCurve curve;
+    public int stepCount;
+}
+
 [CreateAssetMenu(fileName = "SingleRoad", menuName = "Generators/ProceduralGenerators/SingleRoad")]
 public class SingleRoadObject : GeneratorObject
 {
@@ -20,8 +27,8 @@ public class SingleRoadObject : GeneratorObject
     public float startDistance;
 
     public int seed;
-    public float roadProbability;
-    public float spaceProbability;
+    public DensityCurve roadDensity;
+    public DensityCurve spaceDensity;
     public DensityViewable[] roadTemplates;
     public DensityViewable[] spaceTemplates;
 
@@ -50,8 +57,19 @@ public class SingleRoadObject : GeneratorObject
 
         SingleRoadSettings singleRoadSettings;
         singleRoadSettings.seed = seed;
-        singleRoadSettings.roadProbability = roadProbability;
-        singleRoadSettings.spaceProbability = spaceProbability;
+
+        float[] roadDensityf = new float[roadDensity.stepCount];
+        for (int i = 0; i < roadDensity.stepCount; i++){
+            roadDensityf[i] = roadDensity.curve.Evaluate(i / (float)(roadDensity.stepCount-1));
+        }
+        singleRoadSettings.roadDensity = roadDensityf;
+
+        float[] spaceDensityf = new float[spaceDensity.stepCount];
+        for (int i = 0; i < spaceDensity.stepCount; i++)
+        {
+            spaceDensityf[i] = spaceDensity.curve.Evaluate(i / (float)(spaceDensity.stepCount-1));
+        }
+        singleRoadSettings.spaceDensity = spaceDensityf;
 
         singleRoadSettings.roadTemplates = new DensityTemplate[roadTemplates.Length];
         for(int i = 0; i < roadTemplates.Length; i++)

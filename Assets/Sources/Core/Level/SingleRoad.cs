@@ -21,9 +21,11 @@ namespace Core.Level
         private IRandomGenerator randGenerator;
 
         private int curLine = 0;
+        private int curRoadStep = 0;
+        private int curSpaceStep = 0;
 
-        public float RoadProbability { set; get; }
-        public float SpaceProbability { set; get; }
+        public float[] RoadDensity { set; get; }
+        public float[] SpaceDensity { set; get; }
 
         public Field TargetField
         {
@@ -33,8 +35,8 @@ namespace Core.Level
         public SingleRoad(IRandomGenerator randGenerator, float startDistance = 0) : base(startDistance)
         {
             this.randGenerator = randGenerator;
-            RoadProbability = 1;
-            SpaceProbability = 1;
+            RoadDensity = new float[] { 1 };
+            SpaceDensity = new float[] { 1 };
         }
 
         public void AddSpaceResource(float density, Resource resource)
@@ -63,6 +65,14 @@ namespace Core.Level
         {
             Move();
 
+            float curRoadDensity = RoadDensity[curRoadStep++];
+            if (curRoadStep >= RoadDensity.Length) 
+                curRoadStep = 0;
+
+            float curSpaceDensity = SpaceDensity[curSpaceStep++];
+            if (curSpaceStep >= SpaceDensity.Length) 
+                curSpaceStep = 0;
+
             int halfLine = (int)LineCount >> 1;
 
             for (int line = -halfLine; line <= halfLine; line++)
@@ -70,12 +80,12 @@ namespace Core.Level
                 Resource resource = null;
                 if (line == curLine)
                 {
-                    if (randGenerator.GenUniformFloat() <= RoadProbability)
+                    if (randGenerator.GenUniformFloat() <= curRoadDensity)
                         resource = SampleResource(roadGroup, roadProbSum);
                 }
                 else
                 {
-                    if (randGenerator.GenUniformFloat() <= SpaceProbability)
+                    if (randGenerator.GenUniformFloat() <= curSpaceDensity)
                         resource = SampleResource(spaceGroup, spaceProbSum);
                 }
 
