@@ -6,13 +6,22 @@ using Core;
 
 namespace Services.Spawners
 {
-    public class Veget : ProceduralResource
+    public class Veget : ViewableResource
     {
-        public Veget(IViewGroupMapper groupMapper) : base(groupMapper) { }
+        private int damage;
 
-        protected Veget(Veget original) : base(original) { }
+        public int Damage
+        {
+            set { damage = value; }
+        }
 
-        protected override void ConvertToEntityFromClone(IEntityManger entityManager)
+        public Veget() { }
+
+        protected Veget(Veget original) : base(original) {
+            damage = original.damage;
+        }
+
+        protected override void ConvertToEntityImpl(IEntityManger entityManager)
         {
             EcsEntity e = entityManager.CreateEntity();
             ref var pos = ref e.Get<Position>();
@@ -23,15 +32,15 @@ namespace Services.Spawners
             bounds.height = Size.x;
             bounds.width = Size.y;
 
-            float2 newPos = new float2 { x = Distance, y = Field.GetHorizontalPosFor(Line) };
+            float2 newPos = new float2 { x = Distance, y = TargetField.GetHorizontalPosFor(Line) };
             pos.value.x = newPos.x;
             pos.value.y = newPos.y;
 
-            damage.points = 1;
-            view.id = ViewGroupMapper.GetID("bad");
+            damage.points = this.damage;
+            view.id = GetViewGroupID();
         }
 
-        protected override ProceduralResource Clone()
+        public override ConvertableResource Clone()
         {
             return new Veget(this);
         }

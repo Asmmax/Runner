@@ -6,13 +6,22 @@ using Core;
 
 namespace Services.Spawners
 {
-    public class Sweet : ProceduralResource
+    public class Sweet : ViewableResource
     {
-        public Sweet(IViewGroupMapper groupMapper) : base(groupMapper) { }
+        private int points;
 
-        protected Sweet(Sweet original) : base(original) { }
+        public int Points
+        {
+            set { points = value; }
+        }
 
-        protected override void ConvertToEntityFromClone(IEntityManger entityManager)
+        public Sweet() { }
+
+        protected Sweet(Sweet original) : base(original) {
+            points = original.points;
+        }
+
+        protected override void ConvertToEntityImpl(IEntityManger entityManager)
         {
             EcsEntity e = entityManager.CreateEntity();
             ref var pos = ref e.Get<Position>();
@@ -23,15 +32,15 @@ namespace Services.Spawners
             bounds.height = Size.x;
             bounds.width = Size.y;
 
-            float2 newPos = new float2 { x = Distance, y = Field.GetHorizontalPosFor(Line) };
+            float2 newPos = new float2 { x = Distance, y = TargetField.GetHorizontalPosFor(Line) };
             pos.value.x = newPos.x;
             pos.value.y = newPos.y;
 
-            price.points = 1;
-            view.id = ViewGroupMapper.GetID("good");
+            price.points = points;
+            view.id = GetViewGroupID();
         }
 
-        protected override ProceduralResource Clone()
+        public override ConvertableResource Clone()
         {
             return new Sweet(this);
         }

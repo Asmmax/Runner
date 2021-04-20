@@ -7,13 +7,22 @@ using System.Collections.Generic;
 
 namespace Services.Spawners
 {
-    public class Life : ProceduralResource
+    public class Life : ViewableResource
     {
-        public Life(IViewGroupMapper groupMapper):base(groupMapper) { }
+        private uint count;
 
-        protected Life(Life original) : base(original) { }
+        public uint Count
+        {
+            set { count = value; }
+        }
 
-        protected override void ConvertToEntityFromClone(IEntityManger entityManager)
+        public Life() { }
+
+        protected Life(Life original) : base(original) {
+            count = original.count;
+        }
+
+        protected override void ConvertToEntityImpl(IEntityManger entityManager)
         {
             EcsEntity e = entityManager.CreateEntity();
             ref var pos = ref e.Get<Position>();
@@ -24,15 +33,15 @@ namespace Services.Spawners
             bounds.height = Size.x;
             bounds.width = Size.y;
 
-            float2 newPos = new float2 { x = Distance, y = Field.GetHorizontalPosFor(Line) };
+            float2 newPos = new float2 { x = Distance, y = TargetField.GetHorizontalPosFor(Line) };
             pos.value.x = newPos.x;
             pos.value.y = newPos.y;
 
-            repair.points = -1;
-            view.id = ViewGroupMapper.GetID("life");
+            repair.points = -(int)count;
+            view.id = GetViewGroupID();
         }
 
-        protected override ProceduralResource Clone()
+        public override ConvertableResource Clone()
         {
             return new Life(this);
         }

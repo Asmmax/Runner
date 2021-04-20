@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02e2215fdedc3cc4abaa5962ea06b7f1, type: 3}
+  m_Name: SingleRoad
+  m_EditorClassIdentifier: 
+  lineCount: 5
+  lineThickness: 2
+  lineLength: 100
+  startSpeed: 5
+  startDistance: -10
+  seed: 0
+  roadProbability: 0.5
+  spaceProbability: 0.2
+  roadTemplates:
+  - density: 0.1
+    template: {fileID: 11400000, guid: 7e200e6239dc3a44ba5c83117ab7e68b, type: 2}
+  - density: 1
+    template: {fileID: 11400000, guid: 897a094a80f59164a99b9062d0a3925f, type: 2}
+  spaceTemplates:
+  - density: 1
+    template: {fileID: 11400000, guid: 1b4bfd2eafcc17d479686cd6d9374227, type: 2}

@@ -3,17 +3,19 @@
 
     public abstract class Generator
     {
-        private int lineCount;
+        private int lineCount = 1;
         private float distance;
 
-        protected int LineCount { get { return lineCount; } }
+        public uint LineCount {
+            set { lineCount = (int)(((value >> 1) << 1) + 1); }
+            protected get { return (uint)lineCount; } 
+        }
         protected float Distance { get { return distance; } }
 
         public float StepSize { set; get; }
 
-        public Generator(uint lineCount, float startDistance = 0)
+        public Generator(float startDistance = 0)
         {
-            this.lineCount = (int)(((lineCount >> 1) << 1) + 1);
             distance = startDistance;
         }
 

@@ -50,7 +50,7 @@ namespace Services.Spawners
             speed.value = this.speed;
             vertical.value = 0;
             size.height = 1;
-            size.width = 1;
+            size.width = 0.5f;
             health.points = 4;
             view.id = viewGroupMapper.GetID("character");
 

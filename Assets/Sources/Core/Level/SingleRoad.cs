@@ -22,50 +22,62 @@ namespace Core.Level
 
         private int curLine = 0;
 
-        public float RoadDensity { set; get; }
-        public float SpaceDensity { set; get; }
+        public float RoadProbability { set; get; }
+        public float SpaceProbability { set; get; }
 
-        public SingleRoad(Field targetField, IRandomGenerator randGenerator, uint lineCount, float startDistance = 0) : base(lineCount, startDistance)
+        public Field TargetField
         {
-            this.targetField = targetField;
-            this.randGenerator = randGenerator;
+            set { targetField = value; }
         }
 
-        public void AddSpaceResource(float probability, Resource resource)
+        public SingleRoad(IRandomGenerator randGenerator, float startDistance = 0) : base(startDistance)
+        {
+            this.randGenerator = randGenerator;
+            RoadProbability = 1;
+            SpaceProbability = 1;
+        }
+
+        public void AddSpaceResource(float density, Resource resource)
         {
             if (!spaceGroup.ContainsKey(resource))
             {
                 spaceGroup.Add(resource, 0);
             }
 
-            spaceGroup[resource] += probability;
-            spaceProbSum += probability;
+            spaceGroup[resource] += density;
+            spaceProbSum += density;
         }
 
-        public void AddRoadResource(float probability, Resource resource)
+        public void AddRoadResource(float density, Resource resource)
         {
             if (!roadGroup.ContainsKey(resource))
             {
                 roadGroup.Add(resource, 0);
             }
 
-            roadGroup[resource] += probability;
-            roadProbSum += probability;
+            roadGroup[resource] += density;
+            roadProbSum += density;
         }
 
         protected override void Build()
         {
             Move();
 
-            int halfLine = LineCount >> 1;
+            int halfLine = (int)LineCount >> 1;
 
             for (int line = -halfLine; line <= halfLine; line++)
             {
                 Resource resource = null;
-                if(line == curLine)
-                    resource = SampleResource(roadGroup, roadProbSum > 1 ? 1 : roadProbSum);
+                if (line == curLine)
+                {
+                    if (randGenerator.GenUniformFloat() <= RoadProbability)
+                        resource = SampleResource(roadGroup, roadProbSum);
+                }
                 else
-                    resource = SampleResource(spaceGroup, spaceProbSum > 1 ? 1 : spaceProbSum);
+                {
+                    if (randGenerator.GenUniformFloat() <= SpaceProbability)
+                        resource = SampleResource(spaceGroup, spaceProbSum);
+                }
 
                 if (resource != null)
                 {
@@ -79,7 +91,7 @@ namespace Core.Level
         private void Move()
         {
             int step = 0;
-            int halfLine = LineCount >> 1;
+            int halfLine = (int)LineCount >> 1;
 
             if(curLine < halfLine && curLine > -halfLine)
             {
@@ -100,7 +112,7 @@ namespace Core.Level
         private Resource SampleResource(IDictionary<Resource, float> group, float normalizeFactor)
         {
 
-            float value = randGenerator.GenUniformFloat() / normalizeFactor;
+            float value = randGenerator.GenUniformFloat() * normalizeFactor;
             float probSum = 0;
             foreach(var item in group)
             {

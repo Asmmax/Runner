@@ -53,8 +53,7 @@
                 }
             }
 
-            resource.Field = this;
-            resource.Spawn();
+            resource.Spawn(this);
 
         }
 

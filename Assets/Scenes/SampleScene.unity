@@ -1124,14 +1124,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameController: {fileID: 1860819824}
-  lineSettings:
-    lineCount: 5
-    lineThickness: 2
-    defaultResourceSize: 1
-  levelSettings:
-  - startSpeed: 5
-    lineLength: 100
-    seed: 321
+  levels:
+  - {fileID: 11400000, guid: d0d486d99c3daa84e9ff2b381b5b5377, type: 2}
 --- !u!114 &1129062411
 MonoBehaviour:
   m_ObjectHideFlags: 0

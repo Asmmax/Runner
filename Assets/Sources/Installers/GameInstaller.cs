@@ -5,6 +5,7 @@ using Core.Game;
 using Interactors;
 using Core.Level;
 using Services.Spawners;
+using Services.Generators;
 
 public class GameInstaller : MonoInstaller
 {
@@ -12,10 +13,10 @@ public class GameInstaller : MonoInstaller
     private UnityGameController gameController;
 
     [SerializeField]
-    private LineSettings lineSettings;
+    private GeneratorObject[] levels;
 
     [SerializeField]
-    private LevelSettings[] levelSettings;
+    private Life life;
 
     public override void InstallBindings()
     {
@@ -28,7 +29,8 @@ public class GameInstaller : MonoInstaller
 
         Container.Bind<ILevelGateway>().To<TestLevelGateway>().AsSingle();
 
-        Container.Bind<IConverterGateway>().To<TestProceduralSpawner>().AsSingle().WithArguments(lineSettings, levelSettings/*(uint)2, 2f, 1.0f, 10.0f, 100*/);
+        Container.Bind<ILevelGeneratorFactory>().To<SingleRoadGeneratorFactory>().AsSingle();
+        Container.Bind<IConverterGateway>().To<UnityGeneratorContainer>().AsSingle().WithArguments(levels);
 
         Container.BindInterfacesAndSelfTo<PlayInteractor>().AsSingle();
 
