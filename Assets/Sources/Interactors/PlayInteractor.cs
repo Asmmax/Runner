@@ -1,5 +1,6 @@
 ﻿using Core.Game;
 using Core.Data;
+using System.Collections.Generic;
 
 namespace Interactors
 {
@@ -30,6 +31,9 @@ namespace Interactors
         IInputController inputController;
 
         IRenderService renderService;
+        IList<System.Action> loseCallbacks = new List<System.Action>();
+        IList<System.Action> winCallbacks = new List<System.Action>();
+
 
         GameModel targetModel;
 
@@ -98,6 +102,11 @@ namespace Interactors
             stats.Complate();
             levelGateway.PutLevelStats(curLevel, stats);
             Stop();
+
+            foreach (var winCallback in winCallbacks)
+            {
+                winCallback();
+            }
         }
 
         public void Lose()
@@ -106,11 +115,26 @@ namespace Interactors
             stats.PutNewScore(curScore);
             levelGateway.PutLevelStats(curLevel, stats);
             Stop();
+
+            foreach (var loseCallback in loseCallbacks)
+            {
+                loseCallback();
+            }
         }
 
         void IScoreView.Update(int points)
         {
             curScore = points;
+        }
+
+        public void AddWinCallback(System.Action winCallback)
+        {
+            winCallbacks.Add(winCallback);
+        }
+
+        public void AddLoseCallback(System.Action loseCallback)
+        {
+            loseCallbacks.Add(loseCallback);
         }
     }
 }
