@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 515051807531677687}
   - component: {fileID: 6975501454658520821}
-  - component: {fileID: 3405488513912647300}
+  - component: {fileID: 4070336980849000249}
+  - component: {fileID: 5765400038120239552}
   m_Layer: 0
   m_Name: CameraView
   m_TagString: Untagged
@@ -45,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterOffset: -7
---- !u!114 &3405488513912647300
+--- !u!114 &4070336980849000249
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -54,6 +55,49 @@ MonoBehaviour:
   m_GameObject: {fileID: 8407775525416436576}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29c2093607980a045981b6c8d30b986e, type: 3}
+  m_Script: {fileID: 11500000, guid: aa7af03ede7b1214c8876c584b88f6b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clearByWin:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5765400038120239552}
+        m_MethodName: Restore
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  clearByLose:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5765400038120239552}
+        m_MethodName: Restore
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &5765400038120239552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8407775525416436576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57e46125d04631a41b93f8c1412fa2a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minMultFactor: 0.5
+  maxMultFactor: 0.5
+  deltaMultFactor: 0

@@ -1,9 +1,15 @@
 ﻿using UnityEngine;
 
-public class ResourceCleaner : CleanBehaviour
+public class FrustrumCleaner : MonoBehaviour
 {
+    private CleanBehaviour cleanBehaviour;
 
-    public override void ClearByLose()
+    private void Awake()
+    {
+        cleanBehaviour = GetComponent<CleanBehaviour>();
+    }
+
+    public void ClearForward()
     {
         Camera mainCamera = Camera.main;
         float cameraHeight = mainCamera.orthographicSize * 2;
@@ -14,12 +20,7 @@ public class ResourceCleaner : CleanBehaviour
 
         if (pos.x > cameraPos.x + cameraSize.x / 2)
         {
-            afterClean(ownID, gameObject);
+            cleanBehaviour.CallAfterClean();
         }
-    }
-
-    public override void ClearByWin()
-    {
-
     }
 }

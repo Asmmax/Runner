@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5386931032760540997}
   - component: {fileID: 5386931032760540994}
   - component: {fileID: -6264927613865480915}
+  - component: {fileID: 3796787604291284050}
   m_Layer: 0
   m_Name: LifeResourceView
   m_TagString: Untagged
@@ -94,3 +95,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dbab9590a09fcf4889c9fb8f451238e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3796787604291284050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5386931032760540995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa7af03ede7b1214c8876c584b88f6b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clearByWin:
+    m_PersistentCalls:
+      m_Calls: []
+  clearByLose:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -6264927613865480915}
+        m_MethodName: ClearForward
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

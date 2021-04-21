@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using Core.Game;
-using Interactors;
 using Core;
-using System.Collections;
 
-public class UnityImageView : MonoBehaviour, IImageView, IRenderService
+public class UnityImageView : MonoBehaviour, IImageView
 {
     ViewGroupMapper groupMapper;
 
@@ -14,11 +12,6 @@ public class UnityImageView : MonoBehaviour, IImageView, IRenderService
     IDictionary<int, float2> viewOldPositions = new Dictionary<int, float2>();
 
     List<int> cleanList = new List<int>();
-
-    private bool isFinishByLose = false;
-    private bool isFinishByWin = false;
-    private System.Action afterFinish;
-    private Coroutine coroutine;
 
     private void Awake()
     {
@@ -86,68 +79,12 @@ public class UnityImageView : MonoBehaviour, IImageView, IRenderService
         }
     }
 
-    public void FinishByWin(System.Action afterFinish)
-    {
-        if (isFinishByLose || isFinishByWin) return;
-
-        
-        foreach(var view in views)
-        {
-            CleanBehaviour cleanBeh = view.Value.GetComponent<CleanBehaviour>();
-            if (cleanBeh)
-            {
-                cleanBeh.SubscribeAfterClean(view.Key, CleanEnd);
-                cleanBeh.ClearByWin();
-            }
-        }
-
-        coroutine = StartCoroutine("CloseFinishCutscene");
-
-        isFinishByWin = true;
-        this.afterFinish = afterFinish;
+    public IDictionary<int, GameObject> GetViews()
+    { 
+        return views;
     }
 
-    public void FinishByLose(System.Action afterFinish)
-    {
-        if (isFinishByLose || isFinishByWin) return;
-
-        foreach (var view in views)
-        {
-            CleanBehaviour cleanBeh = view.Value.GetComponent<CleanBehaviour>();
-            if (cleanBeh)
-            {
-                cleanBeh.SubscribeAfterClean(view.Key, CleanEnd);
-                cleanBeh.ClearByLose();
-            }
-        }
-
-        coroutine = StartCoroutine("CloseFinishCutscene");
-
-        isFinishByLose = true;
-        this.afterFinish = afterFinish;
-    }
-
-    IEnumerator CloseFinishCutscene()
-    {
-        yield return new WaitForSeconds(5);
-
-        ForceFinish();
-    }
-
-    public void ForceFinish()
-    {
-        if (isFinishByLose || isFinishByWin)
-        {
-            afterFinish();
-            StopCoroutine(coroutine);
-            isFinishByLose = false;
-            isFinishByWin = false;
-        }
-
-        HideAll();
-    }
-
-    public void CleanEnd(int id, GameObject gameObject)
+    public void HideAtNextUpdate(int id, GameObject gameObject)
     {
         cleanList.Add(id);
     }

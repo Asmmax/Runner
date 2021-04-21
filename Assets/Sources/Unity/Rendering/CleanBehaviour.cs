@@ -1,13 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public abstract class CleanBehaviour : MonoBehaviour
+public class CleanBehaviour : MonoBehaviour
 {
     public delegate void AfterClean(int id, GameObject gameObject);
 
-    protected AfterClean afterClean;
-    protected int ownID;
+    [SerializeField]
+    private UnityEvent clearByWin;
+    [SerializeField]
+    private UnityEvent clearByLose;
+
+    private AfterClean afterClean;
+    private int ownID;
 
     public void SubscribeAfterClean(int ownID, AfterClean callback)
     {
@@ -15,6 +21,11 @@ public abstract class CleanBehaviour : MonoBehaviour
         afterClean = callback;
     }
 
-    public abstract void ClearByWin();
-    public abstract void ClearByLose();
+    public void CallAfterClean()
+    {
+        afterClean(ownID, gameObject);
+    }
+
+    public void ClearByWin() { clearByWin.Invoke(); }
+    public void ClearByLose() { clearByLose.Invoke(); }
 }
