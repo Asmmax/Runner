@@ -11,7 +11,9 @@ namespace Interactors
 
     public interface IRenderService
     {
-        void Clean();
+        void FinishByWin(System.Action afterFinished);
+        void FinishByLose(System.Action afterFinished);
+        void ForceFinish();
     }
 
     public interface ILevelGateway
@@ -52,6 +54,8 @@ namespace Interactors
             this.levelGateway = levelGateway;
             this.renderService = renderService;
             this.inputController = inputController;
+
+            inputController.Lock();
         }
 
 
@@ -59,6 +63,8 @@ namespace Interactors
         {
             if (isPlayed) return;
             isPlayed = true;
+
+            renderService.ForceFinish();
 
             inputController.Unlock();
 
@@ -80,7 +86,7 @@ namespace Interactors
         public void Retry()
         {
             Stop();
-            targetModel.Initialize();
+            Play(curLevel);
         }
 
         public void Stop()
@@ -88,21 +94,33 @@ namespace Interactors
             if (!isPlayed) return;
             isPlayed = false;
 
+            StopImpl();
+            renderService.ForceFinish();
+        }
+
+        private void StopImpl()
+        {
             targetModel.Dispose();
             inputController.Reset();
             inputController.Lock();
-            renderService.Clean();
             curScore = 0;
         }
 
         public void Win()
         {
+            if (!isPlayed) return;
+            isPlayed = false;
+
             Level stats = levelGateway.GetLevelStats(curLevel);
             stats.PutNewScore(curScore);
             stats.Complate();
             levelGateway.PutLevelStats(curLevel, stats);
-            Stop();
+            StopImpl();
+            renderService.FinishByWin(WinAfterFinish);
+        }
 
+        public void WinAfterFinish()
+        {
             foreach (var winCallback in winCallbacks)
             {
                 winCallback();
@@ -111,11 +129,18 @@ namespace Interactors
 
         public void Lose()
         {
+            if (!isPlayed) return;
+            isPlayed = false;
+
             Level stats = levelGateway.GetLevelStats(curLevel);
             stats.PutNewScore(curScore);
             levelGateway.PutLevelStats(curLevel, stats);
-            Stop();
+            StopImpl();
+            renderService.FinishByLose(LoseAfterFinish);
+        }
 
+        public void LoseAfterFinish()
+        {
             foreach (var loseCallback in loseCallbacks)
             {
                 loseCallback();
