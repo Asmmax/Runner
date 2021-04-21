@@ -1170,6 +1170,7 @@ GameObject:
   - component: {fileID: 1491368265}
   - component: {fileID: 1491368264}
   - component: {fileID: 1491368268}
+  - component: {fileID: 1491368269}
   - component: {fileID: 1491368267}
   m_Layer: 0
   m_Name: View
@@ -1248,6 +1249,7 @@ MonoBehaviour:
   - {fileID: 1491368265}
   - {fileID: 1491368264}
   - {fileID: 1491368268}
+  - {fileID: 1491368269}
   _identifier: 
   _useSceneContext: 0
   _context: {fileID: 0}
@@ -1264,6 +1266,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06fa16886f4c14042b2aa5863afd5537, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeForFinish: 10
+--- !u!114 &1491368269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1491368263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18df933517fb9fa49a64a21699a5e358, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolSettings:
+  - prefab: {fileID: 1821751251588955576, guid: 4804de3ed62d8ed4db1325b8fceadd2a,
+      type: 3}
+    volume: 200
+  - prefab: {fileID: 7577496749546564417, guid: bd523ce225fef5e47948e2b9786ec98b,
+      type: 3}
+    volume: 100
+  - prefab: {fileID: 5386931032760540995, guid: b48e26a5abbf06042a4a473fdc3fb572,
+      type: 3}
+    volume: 50
+  - prefab: {fileID: 9095723863174096128, guid: 28a784c2075469c4e81548bd75fc2b3a,
+      type: 3}
+    volume: 1
+  - prefab: {fileID: 8407775525416436576, guid: 5a5b2ad9ead17cd4d887d038f4ddfc2e,
+      type: 3}
+    volume: 1
 --- !u!1 &1627670063
 GameObject:
   m_ObjectHideFlags: 0

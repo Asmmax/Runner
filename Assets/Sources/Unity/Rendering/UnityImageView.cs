@@ -3,6 +3,12 @@ using UnityEngine;
 using Core.Game;
 using Core;
 
+public interface IViewPool
+{
+    GameObject Allocate(GameObject prefab);
+    void Deallocate(GameObject gameObject);
+}
+
 public class UnityImageView : MonoBehaviour, IImageView
 {
     ViewGroupMapper groupMapper;
@@ -10,12 +16,17 @@ public class UnityImageView : MonoBehaviour, IImageView
     IDictionary<int, GameObject> views = new Dictionary<int, GameObject>();
     IDictionary<int, Transform> viewTransforms = new Dictionary<int, Transform>();
     IDictionary<int, float2> viewOldPositions = new Dictionary<int, float2>();
-
-    List<int> cleanList = new List<int>();
+    IViewPool pool;
 
     private void Awake()
     {
         groupMapper = GetComponent<ViewGroupMapper>();
+    }
+
+    [Zenject.Inject]
+    public void Init(IViewPool viewPool)
+    {
+        pool = viewPool;
     }
 
     public void Hide(int[] ids)
@@ -24,11 +35,13 @@ public class UnityImageView : MonoBehaviour, IImageView
         {
             if (!views.ContainsKey(ids[i])) continue;
 
+            views[ids[i]].SetActive(false);
+
             viewOldPositions.Remove(ids[i]);
             viewTransforms.Remove(ids[i]);
             GameObject removed = views[ids[i]];
             views.Remove(ids[i]);
-            Destroy(removed);
+            pool.Deallocate(removed);
         }
     }
 
@@ -38,7 +51,7 @@ public class UnityImageView : MonoBehaviour, IImageView
         {
             if (!views.ContainsKey(ids[i]))
             {
-                GameObject newView = Instantiate(groupMapper.GetPrefab(groups[i]), transform);
+                GameObject newView = pool.Allocate(groupMapper.GetPrefab(groups[i]));
                 views.Add(ids[i], newView);
                 viewTransforms.Add(ids[i], newView.transform);
                 viewTransforms[ids[i]].position = Vector2.zero;
@@ -68,33 +81,21 @@ public class UnityImageView : MonoBehaviour, IImageView
         throw new System.NotImplementedException();
     }
 
-    public void HideAll()
+    public void RemoveAll()
     {
         viewOldPositions.Clear();
         viewTransforms.Clear();
-        views.Clear();
-        for (int i = 0; i < transform.childCount; i++)
+
+        foreach(var view in views)
         {
-            Destroy(transform.GetChild(i).gameObject);
+            pool.Deallocate(view.Value);
         }
+
+        views.Clear();
     }
 
     public IDictionary<int, GameObject> GetViews()
     { 
         return views;
-    }
-
-    public void HideAtNextUpdate(int id, GameObject gameObject)
-    {
-        cleanList.Add(id);
-    }
-
-    void Update()
-    {
-        if (cleanList.Count > 0)
-        {
-            Hide(cleanList.ToArray());
-            cleanList.Clear();
-        }
     }
 }

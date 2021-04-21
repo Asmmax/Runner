@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Interactors;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ViewFinisher : MonoBehaviour, IRenderService
 {
@@ -13,6 +14,9 @@ public class ViewFinisher : MonoBehaviour, IRenderService
     private bool isFinishByWin = false;
     private System.Action afterFinish;
     private Coroutine coroutine;
+
+
+    private List<int> cleanList = new List<int>();
 
     private void Awake()
     {
@@ -30,7 +34,7 @@ public class ViewFinisher : MonoBehaviour, IRenderService
             CleanBehaviour cleanBeh = view.Value.GetComponent<CleanBehaviour>();
             if (cleanBeh)
             {
-                cleanBeh.SubscribeAfterClean(view.Key,  imageView.HideAtNextUpdate);
+                cleanBeh.SubscribeAfterClean(view.Key,  HideAtNextUpdate);
                 cleanBeh.ClearByWin();
             }
         }
@@ -50,7 +54,7 @@ public class ViewFinisher : MonoBehaviour, IRenderService
             CleanBehaviour cleanBeh = view.Value.GetComponent<CleanBehaviour>();
             if (cleanBeh)
             {
-                cleanBeh.SubscribeAfterClean(view.Key, imageView.HideAtNextUpdate);
+                cleanBeh.SubscribeAfterClean(view.Key, HideAtNextUpdate);
                 cleanBeh.ClearByLose();
             }
         }
@@ -78,6 +82,21 @@ public class ViewFinisher : MonoBehaviour, IRenderService
             isFinishByWin = false;
         }
 
-        imageView.HideAll();
+        imageView.RemoveAll();
+    }
+
+    public void HideAtNextUpdate(int id)
+    {
+        cleanList.Add(id);
+    }
+
+    void FixedUpdate()
+    {
+        if (cleanList.Count > 0)
+        {
+            int[] ids = cleanList.ToArray();
+            cleanList.Clear();
+            imageView.Hide(ids);
+        }
     }
 }

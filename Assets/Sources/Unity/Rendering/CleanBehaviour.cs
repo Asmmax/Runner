@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class CleanBehaviour : MonoBehaviour
 {
-    public delegate void AfterClean(int id, GameObject gameObject);
+    public delegate void AfterClean(int id);
 
     [SerializeField]
     private UnityEvent clearByWin;
@@ -23,7 +23,7 @@ public class CleanBehaviour : MonoBehaviour
 
     public void CallAfterClean()
     {
-        afterClean(ownID, gameObject);
+        afterClean(ownID);
     }
 
     public void ClearByWin() { clearByWin.Invoke(); }
