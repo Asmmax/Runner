@@ -3,12 +3,6 @@ using UnityEngine;
 using Core.Game;
 using Core;
 
-public interface IViewPool
-{
-    GameObject Allocate(GameObject prefab);
-    void Deallocate(GameObject gameObject);
-}
-
 public class UnityImageView : MonoBehaviour, IImageView
 {
     ViewGroupMapper groupMapper;
@@ -16,7 +10,7 @@ public class UnityImageView : MonoBehaviour, IImageView
     IDictionary<int, GameObject> views = new Dictionary<int, GameObject>();
     IDictionary<int, Transform> viewTransforms = new Dictionary<int, Transform>();
     IDictionary<int, float2> viewOldPositions = new Dictionary<int, float2>();
-    IViewPool pool;
+    IPool pool;
 
     private void Awake()
     {
@@ -24,7 +18,7 @@ public class UnityImageView : MonoBehaviour, IImageView
     }
 
     [Zenject.Inject]
-    public void Init(IViewPool viewPool)
+    public void Init(IPool viewPool)
     {
         pool = viewPool;
     }

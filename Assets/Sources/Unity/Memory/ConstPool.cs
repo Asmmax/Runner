@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
@@ -10,7 +8,7 @@ public struct PoolSettings
     public int volume;
 }
 
-public class ConstViewPool : MonoBehaviour, IViewPool
+public class ConstPool : MonoBehaviour, IPool
 {
     [SerializeField]
     private PoolSettings[] poolSettings;
