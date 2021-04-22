@@ -10,13 +10,7 @@ using Services.Generators;
 public class GameInstaller : MonoInstaller
 {
     [SerializeField]
-    private UnityGameController gameController;
-
-    [SerializeField]
     private GeneratorObject[] levels;
-
-    [SerializeField]
-    private Life life;
 
     public override void InstallBindings()
     {
@@ -32,6 +26,5 @@ public class GameInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<PlayInteractor>().AsSingle();
 
         Container.BindInterfacesAndSelfTo<GameModelBinder>().AsSingle().NonLazy();
-        Container.Inject(gameController);
     }
 }
