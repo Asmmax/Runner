@@ -15,6 +15,11 @@ public class VelocityRestorer : MonoBehaviour
 
     private bool isRestored = false;
 
+    private void OnEnable()
+    {
+        isRestored = false;
+    }
+
     public void Restore()
     {
         isRestored = true;
