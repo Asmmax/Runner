@@ -22,6 +22,7 @@ public class GameInstaller : MonoInstaller
         Container.Bind<ILevelGateway>().To<TestLevelGateway>().AsSingle();
         Container.Bind<IConverterGateway>().To<UnityGeneratorContainer>().AsSingle().WithArguments(levels);
 
+        Container.BindInterfacesAndSelfTo<StatusInteractor>().AsSingle();
         Container.BindInterfacesAndSelfTo<PauseInteractor>().AsSingle();
         Container.BindInterfacesAndSelfTo<PlayInteractor>().AsSingle();
 
