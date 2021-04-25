@@ -2,11 +2,12 @@
 using UnityEngine.Events;
 using Interactors;
 using Zenject;
+using Saves;
 
 public class UnityGameController : MonoBehaviour
 {
-    private PauseInteractor pauseInteractor;
-    private PlayInteractor playInteractor;
+    private GameController gameController;
+    private int targetLevel;
 
     [SerializeField]
     private UnityEvent gameOver;
@@ -14,42 +15,55 @@ public class UnityGameController : MonoBehaviour
     private UnityEvent gameWin;
 
     [Inject]
-    public void Init(PauseInteractor pauseInteractor, PlayInteractor playInteractor)
+    public void Init(GameController gameController)
     {
-        this.playInteractor = playInteractor;
-        this.pauseInteractor = pauseInteractor;
-        this.playInteractor.AddLoseCallback(Lose);
-        this.playInteractor.AddWinCallback(Win);
+        this.gameController = gameController;
+        this.gameController.AddLoseCallback(Lose);
+        this.gameController.AddWinCallback(Win);
     }
 
-    public void Play(int level)
+    public int TargetLevel
     {
-        playInteractor.Play(level);
+        set
+        {
+            targetLevel = value;
+        }
+    }
+
+    public void NextLevel()
+    {
+        targetLevel++;
+    }
+
+    public void Play()
+    {
+        gameController.Play(targetLevel);
     }
 
     public void Retry()
     {
-        playInteractor.Retry();
+        gameController.Stop();
+        gameController.Play(targetLevel);
     }
 
     public void Stop()
     {
-        playInteractor.Stop();
+        gameController.Stop();
     }
 
     public void Pause()
     {
-        pauseInteractor.Pause();
+        gameController.Pause();
     }
 
     public void Resume()
     {
-        pauseInteractor.Resume();
+        gameController.Resume();
     }
 
     private void Update()
     {
-        playInteractor.Update();
+        gameController.Update();
     }
 
     private void Win()

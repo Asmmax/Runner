@@ -5,6 +5,7 @@ using Core.Game;
 using Interactors;
 using Core.Level;
 using Services.Spawners;
+using Saves;
 using Services.Generators;
 
 public class GameInstaller : MonoInstaller
@@ -22,9 +23,8 @@ public class GameInstaller : MonoInstaller
         Container.Bind<ILevelGateway>().To<TestLevelGateway>().AsSingle();
         Container.Bind<IConverterGateway>().To<UnityGeneratorContainer>().AsSingle().WithArguments(levels);
 
-        Container.BindInterfacesAndSelfTo<StatusInteractor>().AsSingle();
-        Container.BindInterfacesAndSelfTo<PauseInteractor>().AsSingle();
-        Container.BindInterfacesAndSelfTo<PlayInteractor>().AsSingle();
+        Container.BindInterfacesAndSelfTo<GameController>().AsSingle();
+        Container.BindInterfacesAndSelfTo<State>().AsSingle();
 
         Container.BindInterfacesAndSelfTo<GameModelBinder>().AsSingle().NonLazy();
     }

@@ -13,11 +13,11 @@ public class GameModelBinder: System.IDisposable
         IHealthView healthView, 
         ITimeController timeController, 
         IInputController inputController, 
-        PlayInteractor playInteractor)
+        GameController gameController)
     {
         ScoreViewContainer scoreContainer = new ScoreViewContainer(scoreViews);
         targetModel = new UnityIntegratedGameModel(inputController, timeController, imageView, healthView, scoreContainer);
-        playInteractor.TargetModel = targetModel;
+        gameController.TargetModel = targetModel;
     }
 
     public void Dispose()

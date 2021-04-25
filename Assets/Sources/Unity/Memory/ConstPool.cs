@@ -37,7 +37,8 @@ public class ConstPool : MonoBehaviour, IPool
     public GameObject Allocate(GameObject prefab)
     {
         if (!pools.ContainsKey(prefab)) return null;
-
+        Debug.Assert(pools[prefab].Count > 0, "Not enougn pool with " + prefab.name + " prefab");
+            
         GameObject go = pools[prefab].Dequeue();
         go.SetActive(true);
 

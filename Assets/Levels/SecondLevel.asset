@@ -10,41 +10,32 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 02e2215fdedc3cc4abaa5962ea06b7f1, type: 3}
-  m_Name: FirstLevel
+  m_Name: SecondLevel
   m_EditorClassIdentifier: 
   lineCount: 5
   lineThickness: 2
   lineLength: 100
   startSpeed: 5
   startDistance: -10
-  seed: 1
+  seed: 12
   roadDensity:
     curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.0000017806888
-        value: 0.96404076
-        inSlope: -0.74085206
-        outSlope: -0.74085206
+        time: 0
+        value: 0.5012512
+        inSlope: 0.49874878
+        outSlope: 0.49874878
         tangentMode: 34
         weightedMode: 0
         inWeight: 0
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.32129684
-        value: 0.72600865
-        inSlope: -0.535077
-        outSlope: -0.535077
-        tangentMode: 34
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.9986572
-        value: 0.5029526
-        inSlope: -0.32930192
-        outSlope: -0.32930192
+        time: 1
+        value: 1
+        inSlope: 0.49874878
+        outSlope: 0.49874878
         tangentMode: 34
         weightedMode: 0
         inWeight: 0.33333334
@@ -58,29 +49,38 @@ MonoBehaviour:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 0.20204163
-        inSlope: 0.5974969
-        outSlope: 0.5974969
-        tangentMode: 34
+        time: 0.0017700195
+        value: 0.3378601
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
         weightedMode: 0
         inWeight: 0
-        outWeight: 0.33333334
+        outWeight: 0
       - serializedVersion: 3
-        time: 0.99998575
-        value: 0.79953
-        inSlope: 0.5974969
-        outSlope: 0.5974969
-        tangentMode: 34
+        time: 0.5153256
+        value: 0.52298117
+        inSlope: 1.498591
+        outSlope: 1.498591
+        tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     stepCount: 100
   roadTemplates:
-  - density: 0.1
+  - density: 0.05
     template: {fileID: 11400000, guid: 7e200e6239dc3a44ba5c83117ab7e68b, type: 2}
   - density: 1
     template: {fileID: 11400000, guid: 897a094a80f59164a99b9062d0a3925f, type: 2}

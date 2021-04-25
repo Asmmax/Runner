@@ -1,29 +1,35 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 using Interactors;
 using System.Collections;
 using System.Collections.Generic;
 
-public class ViewFinisher : MonoBehaviour, IRenderService
+public class ViewFinisher : MonoBehaviour
 {
     [SerializeField]
     private float timeForFinish = 10;
+
+    [SerializeField]
+    private UnityEvent afterFinishByWin;
+    [SerializeField]
+    private UnityEvent afterFinishByLose;
 
     private UnityImageView imageView;
 
     private bool isFinishByLose = false;
     private bool isFinishByWin = false;
-    private System.Action afterFinish;
     private Coroutine coroutine;
 
 
     private List<int> cleanList = new List<int>();
 
-    private void Awake()
+    [Zenject.Inject]
+    public void Init(UnityImageView unityImageView)
     {
-        imageView = GetComponent<UnityImageView>();
+        imageView = unityImageView;
     }
 
-    public void FinishByWin(System.Action afterFinish)
+    public void FinishByWin()
     {
         if (isFinishByLose || isFinishByWin) return;
 
@@ -42,10 +48,9 @@ public class ViewFinisher : MonoBehaviour, IRenderService
         coroutine = StartCoroutine("CloseFinishCutscene");
 
         isFinishByWin = true;
-        this.afterFinish = afterFinish;
     }
 
-    public void FinishByLose(System.Action afterFinish)
+    public void FinishByLose()
     {
         if (isFinishByLose || isFinishByWin) return;
 
@@ -62,7 +67,6 @@ public class ViewFinisher : MonoBehaviour, IRenderService
         coroutine = StartCoroutine("CloseFinishCutscene");
 
         isFinishByLose = true;
-        this.afterFinish = afterFinish;
     }
 
     IEnumerator CloseFinishCutscene()
@@ -76,7 +80,10 @@ public class ViewFinisher : MonoBehaviour, IRenderService
     {
         if (isFinishByLose || isFinishByWin)
         {
-            afterFinish();
+            if (isFinishByLose)
+                afterFinishByLose.Invoke();
+            if (isFinishByWin)
+                afterFinishByWin.Invoke();
             StopCoroutine(coroutine);
             isFinishByLose = false;
             isFinishByWin = false;

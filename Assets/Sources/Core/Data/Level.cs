@@ -2,13 +2,14 @@
 {
     public class Level
     {
+        private int id = 0;
+        private string name;
         private int maxScore = 0;
-        private int stage = 0;
         private bool isComplated = false;
 
-        public Level(int stage)
+        public Level(int id)
         {
-            this.stage = stage;
+            this.id = id;
         }
 
         public int MaxScore
@@ -19,11 +20,19 @@
             }
         }
 
-        public int Stage
+        public int Id
         {
             get
             {
-                return stage;
+                return id;
+            }
+        }
+
+        public string Name
+        {
+            get
+            {
+                return name;
             }
         }
 
@@ -42,5 +51,7 @@
             if (points > maxScore)
                 maxScore = points;
         }
+
+
     }
 }

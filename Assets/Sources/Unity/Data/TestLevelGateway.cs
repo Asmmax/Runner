@@ -1,4 +1,4 @@
-﻿using Interactors;
+﻿using Saves;
 using Core.Data;
 using System.Collections.Generic;
 
@@ -11,12 +11,25 @@ public class TestLevelGateway : ILevelGateway
         {
             levels.Add(level, new Level(level));
         }
-
         return levels[level];
     }
 
-    public void PutLevelStats(int level, Level stats)
+    public void PutLevelStats(Level stats)
     {
-        levels[level] = stats;
+        if (stats != null) return;
+
+        if (!levels.ContainsKey(stats.Id))
+        {
+            levels.Add(stats.Id, stats);
+        }
+        else
+        {
+            levels[stats.Id] = stats;
+        }
+    }
+
+    public void ResetStats()
+    {
+        levels.Clear();
     }
 }
