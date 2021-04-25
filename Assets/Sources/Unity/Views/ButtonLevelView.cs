@@ -10,8 +10,6 @@ public class ButtonLevelView : MonoBehaviour, IStateView
     private Text buttonText;
     [SerializeField]
     private Button button;
-    [SerializeField]
-    private int level;
 
     private string buttonName;
     private int score;

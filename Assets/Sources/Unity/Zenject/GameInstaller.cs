@@ -10,9 +10,6 @@ using Services.Generators;
 
 public class GameInstaller : MonoInstaller
 {
-    [SerializeField]
-    private GeneratorObject[] levels;
-
     public override void InstallBindings()
     {
         Container.Bind<IRandomGenerator>().To<UnityRandomGenerator>().AsSingle();
@@ -21,7 +18,6 @@ public class GameInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<UnityTimeController>().AsSingle();
         Container.BindInterfacesAndSelfTo<UnityInputController>().AsSingle();
         Container.Bind<ILevelGateway>().To<TestLevelGateway>().AsSingle();
-        Container.Bind<IConverterGateway>().To<UnityGeneratorContainer>().AsSingle().WithArguments(levels);
 
         Container.BindInterfacesAndSelfTo<GameController>().AsSingle();
         Container.BindInterfacesAndSelfTo<State>().AsSingle();

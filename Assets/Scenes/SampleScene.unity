@@ -2425,13 +2425,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 952b2ac95ddd1ed4a9071df384915834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateViews:
+  levels:
   - level: 0
-    name: First Level
-    stateViewNode: {fileID: 9645107}
+    name: First level
+    levelNode: {fileID: 9645107}
+    levelObject: {fileID: 11400000, guid: d0d486d99c3daa84e9ff2b381b5b5377, type: 2}
   - level: 1
-    name: Second Level
-    stateViewNode: {fileID: 1236695576}
+    name: Second level
+    levelNode: {fileID: 1236695576}
+    levelObject: {fileID: 11400000, guid: d64f23b5d26f318459600ab08ab352ba, type: 2}
 --- !u!4 &962692840
 Transform:
   m_ObjectHideFlags: 0
