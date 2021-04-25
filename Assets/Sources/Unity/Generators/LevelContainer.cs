@@ -4,18 +4,33 @@ using Saves;
 using Services.Generators;
 using Core.Game;
 using Interactors;
+using UnityEngine.UI;
 
 [System.Serializable]
 public struct LevelInfo
 {
-    public int level;
+    public int id;
     public string name;
-    public GameObject levelNode;
     public GeneratorObject levelObject;
 }
 
 public class LevelContainer: MonoBehaviour, IStateViewContainer, ILevelNaming, IConverterGateway
 {
+    [SerializeField]
+    private GameObject levelButtonPref;
+
+    [SerializeField]
+    private GameObject levelContainerNode;
+
+    [SerializeField]
+    private GameObject levelPanel;
+
+    [SerializeField]
+    private GameObject gamePanel;
+
+    [SerializeField]
+    private UnityGameController gameController;
+
     [SerializeField]
     private LevelInfo[] levels;
 
@@ -29,16 +44,27 @@ public class LevelContainer: MonoBehaviour, IStateViewContainer, ILevelNaming, I
     public void Init(IList<ILevelGeneratorFactory> generatorFactories)
     {
         this.generatorFactories = generatorFactories;
+    }
 
+    private void Awake()
+    {
         foreach (var level in levels)
         {
-            IStateView view = level.levelNode.GetComponent<IStateView>();
+            GameObject levelButton = Instantiate(levelButtonPref, levelContainerNode.transform);
+            Button button = levelButton.GetComponent<Button>();
+            button.onClick.AddListener(() => gameController.SetTargetlevel(level.id));
+            button.onClick.AddListener(gameController.Play);
+            button.onClick.AddListener(() => levelPanel.SetActive(false));
+            button.onClick.AddListener(() => gamePanel.SetActive(true));
+
+            IStateView view = levelButton.GetComponent<IStateView>();
             if (view != null)
             {
-                stateViews.Add(level.level, view);
-                levelNames.Add(level.level, level.name);
-                levelGenerators.Add(level.level, level.levelObject);
+                stateViews.Add(level.id, view);
+                levelNames.Add(level.id, level.name);
+                levelGenerators.Add(level.id, level.levelObject);
             }
+
         }
     }
 

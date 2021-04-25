@@ -22,12 +22,9 @@ public class UnityGameController : MonoBehaviour
         this.gameController.AddWinCallback(Win);
     }
 
-    public int TargetLevel
+    public void SetTargetlevel(int level)
     {
-        set
-        {
-            targetLevel = value;
-        }
+        targetLevel = level;
     }
 
     public void NextLevel()
