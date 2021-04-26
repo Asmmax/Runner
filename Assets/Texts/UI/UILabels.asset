@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 824d571540e9e4d448c147fca222151b, type: 3}
+  m_Name: UILabels
+  m_EditorClassIdentifier: 
+  textRows:
+  - id: best_score_label
+    translations:
+    - local: 1
+      text: 'Best Score:'
+    - local: 0
+      text: "\u041B\u0443\u0447\u0448\u0438\u0439 \u0441\u0447\u0451\u0442:"
+  - id: score_label
+    translations:
+    - local: 1
+      text: 'Your score:'
+    - local: 0
+      text: "\u0412\u0430\u0448 \u0441\u0447\u0451\u0442:"
+  - id: levels_label
+    translations:
+    - local: 1
+      text: Levels
+    - local: 0
+      text: "\u0412\u044B\u0431\u043E\u0440 \u0443\u0440\u043E\u0432\u043D\u044F"
+  - id: pause_label
+    translations:
+    - local: 1
+      text: Pause menu
+    - local: 0
+      text: "\u041C\u0435\u043D\u044E \u043F\u0430\u0443\u0437\u044B"
+  - id: win_label
+    translations:
+    - local: 1
+      text: You win!
+    - local: 0
+      text: "\u0412\u044B \u0432\u044B\u0438\u0433\u0440\u0430\u043B\u0438!"
+  - id: lose_label
+    translations:
+    - local: 1
+      text: You lose!
+    - local: 0
+      text: "\u0412\u044B \u043F\u0440\u043E\u0438\u0433\u0440\u0430\u043B\u0438!"

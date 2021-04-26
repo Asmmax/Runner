@@ -4,6 +4,7 @@ using Saves;
 using Services.Generators;
 using Core.Game;
 using Interactors;
+using Services.Localization;
 using UnityEngine.UI;
 
 [System.Serializable]
@@ -39,11 +40,13 @@ public class LevelContainer: MonoBehaviour, IStateViewContainer, ILevelNaming, I
     IDictionary<int, GeneratorObject> levelGenerators = new Dictionary<int, GeneratorObject>();
 
     private IList<ILevelGeneratorFactory> generatorFactories;
+    private ITextLocalizationService textLocalizationService;
 
     [Zenject.Inject]
-    public void Init(IList<ILevelGeneratorFactory> generatorFactories)
+    public void Init(IList<ILevelGeneratorFactory> generatorFactories, ITextLocalizationService textLocalizationService)
     {
         this.generatorFactories = generatorFactories;
+        this.textLocalizationService = textLocalizationService;
     }
 
     private void Awake()
@@ -77,7 +80,7 @@ public class LevelContainer: MonoBehaviour, IStateViewContainer, ILevelNaming, I
 
     public string GetName(int level)
     {
-        return levelNames[level];
+        return textLocalizationService.TranslateText(levelNames[level]);
     }
 
     public IStateView GetStateView(int level)

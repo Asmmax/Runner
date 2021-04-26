@@ -7,13 +7,13 @@ using UnityEngine.UI;
 public class ButtonLevelView : MonoBehaviour, IStateView
 {
     [SerializeField]
-    private Text buttonText;
+    private Text nameText;
+    [SerializeField]
+    private Text scoreText;
+    [SerializeField]
+    private GameObject scoreNode;
     [SerializeField]
     private Button button;
-
-    private string buttonName;
-    private int score;
-    private bool isCompleted;
 
     public void SetActive(bool isActive)
     {
@@ -22,29 +22,16 @@ public class ButtonLevelView : MonoBehaviour, IStateView
 
     public void SetCompleteness(bool isCompleted)
     {
-        this.isCompleted = isCompleted;
-        UpdateButtonName();
-
+        scoreNode.SetActive(isCompleted);
     }
 
     public void SetLevelName(string name)
     {
-        buttonName = name;
-        UpdateButtonName();
+        nameText.text = name;
     }
 
     public void SetMaxScore(int points)
     {
-        score = points;
-        UpdateButtonName();
-    }
-
-    private void UpdateButtonName()
-    {
-        string levelInfo = "";
-        if (isCompleted) {
-            levelInfo = score.ToString();
-        }
-        buttonText.text = buttonName + ((levelInfo.Length > 0) ? "\n" + levelInfo : "");
+        scoreText.text = points.ToString();
     }
 }
