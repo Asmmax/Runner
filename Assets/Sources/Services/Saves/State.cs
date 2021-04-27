@@ -6,7 +6,7 @@ namespace Saves
     public interface ILevelGateway
     {
         /// <returns>Not null reference to Level</returns>
-        Level GetLevelStats(int level);
+        Level GetOrCreateLevelStats(int level);
         void PutLevelStats(Level stats);
         void ResetStats();
     }
@@ -48,7 +48,7 @@ namespace Saves
             bool lastComplated = true;
 
             foreach(var id in ids){
-                Level level = levelGateway.GetLevelStats(id);
+                Level level = levelGateway.GetOrCreateLevelStats(id);
                 IStateView stateView = stateViewContainer.GetStateView(id);
 
                 bool isComplated = level.IsComplated();

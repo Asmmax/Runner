@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class TestLevelGateway : ILevelGateway
 {
     private IDictionary<int, Level> levels = new Dictionary<int, Level>();
-    public Level GetLevelStats(int level)
+    public Level GetOrCreateLevelStats(int level)
     {
         if (!levels.ContainsKey(level))
         {

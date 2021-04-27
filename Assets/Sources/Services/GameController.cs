@@ -104,7 +104,7 @@ namespace Interactors
             if (!isPlayed) return;
             isPlayed = false;
 
-            Level stats = levelGateway.GetLevelStats(curLevel);
+            Level stats = levelGateway.GetOrCreateLevelStats(curLevel);
             stats.PutNewScore(curScore);
             stats.Complate();
             levelGateway.PutLevelStats(stats);
@@ -118,7 +118,7 @@ namespace Interactors
             if (!isPlayed) return;
             isPlayed = false;
 
-            Level stats = levelGateway.GetLevelStats(curLevel);
+            Level stats = levelGateway.GetOrCreateLevelStats(curLevel);
             stats.PutNewScore(curScore);
             levelGateway.PutLevelStats(stats);
             StopImpl();
