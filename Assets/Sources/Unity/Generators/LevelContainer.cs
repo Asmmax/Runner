@@ -1,39 +1,19 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 using Saves;
 using Services.Generators;
 using Core.Game;
 using Interactors;
 using Services.Localization;
-using UnityEngine.UI;
+using Zenject;
 
-[System.Serializable]
-public struct LevelInfo
+public interface IStateViewFactory
 {
-    public int id;
-    public string name;
-    public GeneratorObject levelObject;
+    IStateView GetStateView(int level);
 }
 
-public class LevelContainer: MonoBehaviour, IStateViewContainer, ILevelNaming, IConverterGateway
+public class LevelContainer: IInitializable, IStateViewContainer, ILevelNaming, IConverterGateway
 {
-    [SerializeField]
-    private GameObject levelButtonPref;
-
-    [SerializeField]
-    private GameObject levelContainerNode;
-
-    [SerializeField]
-    private GameObject levelPanel;
-
-    [SerializeField]
-    private GameObject gamePanel;
-
-    [SerializeField]
-    private UnityGameController gameController;
-
-    [SerializeField]
-    private LevelInfo[] levels;
+    private LevelSettings settings;
 
     IDictionary<int, IStateView> stateViews = new Dictionary<int, IStateView>();
     IDictionary<int, string> levelNames = new Dictionary<int, string>();
@@ -41,26 +21,24 @@ public class LevelContainer: MonoBehaviour, IStateViewContainer, ILevelNaming, I
 
     private IList<ILevelGeneratorFactory> generatorFactories;
     private ITextLocalizationService textLocalizationService;
+    private IStateViewFactory stateViewFactory;
 
-    [Zenject.Inject]
-    public void Init(IList<ILevelGeneratorFactory> generatorFactories, ITextLocalizationService textLocalizationService)
+    public LevelContainer(IList<ILevelGeneratorFactory> generatorFactories, 
+        ITextLocalizationService textLocalizationService, 
+        IStateViewFactory stateViewFactory, 
+        LevelSettings settings)
     {
         this.generatorFactories = generatorFactories;
         this.textLocalizationService = textLocalizationService;
+        this.stateViewFactory = stateViewFactory;
+        this.settings = settings;
     }
 
-    private void Awake()
+    public void Initialize()
     {
-        foreach (var level in levels)
+        foreach (var level in settings.levels)
         {
-            GameObject levelButton = Instantiate(levelButtonPref, levelContainerNode.transform);
-            Button button = levelButton.GetComponent<Button>();
-            button.onClick.AddListener(() => gameController.SetTargetlevel(level.id));
-            button.onClick.AddListener(gameController.Play);
-            button.onClick.AddListener(() => levelPanel.SetActive(false));
-            button.onClick.AddListener(() => gamePanel.SetActive(true));
-
-            IStateView view = levelButton.GetComponent<IStateView>();
+            IStateView view = stateViewFactory.GetStateView(level.id);
             if (view != null)
             {
                 stateViews.Add(level.id, view);

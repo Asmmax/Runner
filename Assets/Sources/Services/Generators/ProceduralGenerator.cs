@@ -5,7 +5,7 @@ using Services.Spawners;
 
 namespace Services.Generators
 {
-    public struct LevelSettings
+    public struct LevelParams
     {
         public uint lineCount;
         public float lineThickness;
@@ -18,9 +18,9 @@ namespace Services.Generators
     {
         private IViewGroupMapper viewGroupMapper;
 
-        private LevelSettings levelSettings;
+        private LevelParams levelSettings;
 
-        public ProceduralGenerator(IViewGroupMapper viewGroupMapper, LevelSettings levelSettings)
+        public ProceduralGenerator(IViewGroupMapper viewGroupMapper, LevelParams levelSettings)
         {
             this.viewGroupMapper = viewGroupMapper;
             this.levelSettings = levelSettings;

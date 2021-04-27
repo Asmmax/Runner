@@ -48,14 +48,14 @@ public class SingleRoadObject : GeneratorObject
 
     private void SetupGeneratorFactory(SingleRoadGeneratorFactory singleRoadFactory)
     {
-        LevelSettings levelSettings;
+        LevelParams levelSettings;
         levelSettings.lineCount = lineCount;
         levelSettings.lineThickness = lineThickness;
         levelSettings.lineLength = lineLength;
         levelSettings.startSpeed = startSpeed;
         levelSettings.startDistance = startDistance;
 
-        SingleRoadSettings singleRoadSettings;
+        SingleRoadParams singleRoadSettings;
         singleRoadSettings.seed = seed;
 
         float[] roadDensityf = new float[roadDensity.stepCount];

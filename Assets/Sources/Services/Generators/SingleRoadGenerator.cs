@@ -11,7 +11,7 @@ namespace Services.Generators
         public ViewableResource template;
     }
 
-    public struct SingleRoadSettings
+    public struct SingleRoadParams
     {
         public int seed;
         public float[] roadDensity;
@@ -24,15 +24,15 @@ namespace Services.Generators
     {
         private IViewGroupMapper viewGroupMapper;
         private IRandomGenerator randomGenerator;
-        private LevelSettings levelSettings;
-        private SingleRoadSettings settings;
+        private LevelParams levelSettings;
+        private SingleRoadParams settings;
 
         public SingleRoadGeneratorFactory(IViewGroupMapper viewGroupMapper, IRandomGenerator randomGenerator)
         {
             this.viewGroupMapper = viewGroupMapper;
             this.randomGenerator = randomGenerator;
         }
-        public void SetupSingleRoad(LevelSettings levelSettings, SingleRoadSettings settings)
+        public void SetupSingleRoad(LevelParams levelSettings, SingleRoadParams settings)
         {
             this.levelSettings = levelSettings;
             this.settings = settings;
@@ -48,9 +48,9 @@ namespace Services.Generators
         private SingleRoad singleRoad;
         private IViewGroupMapper viewGroupMapper;
         private IRandomGenerator randomGenerator;
-        private SingleRoadSettings settings;
+        private SingleRoadParams settings;
 
-        public SingleRoadGenerator(IViewGroupMapper viewGroupMapper, IRandomGenerator randomGenerator, LevelSettings levelSettings, SingleRoadSettings settings)
+        public SingleRoadGenerator(IViewGroupMapper viewGroupMapper, IRandomGenerator randomGenerator, LevelParams levelSettings, SingleRoadParams settings)
             : base(viewGroupMapper, levelSettings)
         {
             this.viewGroupMapper = viewGroupMapper;
