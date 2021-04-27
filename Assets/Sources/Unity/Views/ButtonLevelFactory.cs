@@ -1,4 +1,5 @@
 ﻿using Saves;
+using Services.Localization;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,6 +17,14 @@ public class ButtonLevelFactory : MonoBehaviour, IStateViewFactory
     [SerializeField]
     private UnityGameController gameController;
 
+    private ITextLocalizationService textLocalization;
+
+    [Zenject.Inject]
+    public void Init(ITextLocalizationService textLocalization)
+    {
+        this.textLocalization = textLocalization;
+    }
+
     public IStateView GetStateView(int level)
     {
         GameObject levelButton = Instantiate(levelButtonPref, transform);
@@ -24,6 +33,12 @@ public class ButtonLevelFactory : MonoBehaviour, IStateViewFactory
         button.onClick.AddListener(gameController.Play);
         button.onClick.AddListener(() => levelPanel.SetActive(false));
         button.onClick.AddListener(() => gamePanel.SetActive(true));
+
+        TextLocalizator[] localizators = levelButton.GetComponentsInChildren<TextLocalizator>();
+        foreach (var localizator in localizators)
+        {
+            localizator.Init(textLocalization);
+        }
 
         return levelButton.GetComponent<IStateView>();
     }

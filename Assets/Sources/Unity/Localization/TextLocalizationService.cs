@@ -3,18 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using Services.Localization;
 
-public class TextLocalizationService : MonoBehaviour, ITextLocalizationService
+public class TextLocalizationService : ITextLocalizationService
 {
-    [SerializeField]
-    private Local defaultLocal = Local.ENG;
-    [SerializeField]
-    private TextLocalTable[] tables;
+    private LocalizationSettings settings;
 
     private Local targetLocal;
 
-    void Awake()
+    public TextLocalizationService(LocalizationSettings settings)
     {
-        targetLocal = defaultLocal;
+        this.settings = settings;
+        targetLocal = settings.defaultLocal;
     }
 
     public void SetLocal(Local local)
@@ -24,7 +22,7 @@ public class TextLocalizationService : MonoBehaviour, ITextLocalizationService
 
     public string TranslateText(string id)
     {
-        foreach(var table in tables)
+        foreach(var table in settings.tables)
         {
             string translated = table.TranslateText(id, targetLocal);
             if (translated != null)

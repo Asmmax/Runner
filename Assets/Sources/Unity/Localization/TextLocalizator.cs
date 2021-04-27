@@ -14,9 +14,16 @@ public class TextLocalizator : MonoBehaviour
     [SerializeField]
     private LocalizableText setText;
 
+    private ITextLocalizationService textLocalization;
+
+    [Zenject.Inject]
+    public void Init(ITextLocalizationService textLocalization)
+    {
+        this.textLocalization = textLocalization;
+    }
+
     private void Awake()
     {
-        TextLocalizationService textLocalization = FindObjectOfType<TextLocalizationService>();
         setText.Invoke(textLocalization.TranslateText(textId));
     }
 }
