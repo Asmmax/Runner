@@ -2979,7 +2979,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64fc1d3f31edaa144beb0259e9bda636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelSettings: {fileID: 11400000, guid: cd30c24cd0c28834b80d47e0a4d4c3df, type: 2}
+  levelSettings: {fileID: 11400000, guid: aaead6377c0ed1d4bb312c4b69ae5adb, type: 2}
   localizationSettings: {fileID: 11400000, guid: e1fad8c8c3b1f8944a9b25cfbd51aef6,
     type: 2}
   viewSettings: {fileID: 11400000, guid: 115b7b004b5c587499b3ee5dfd169898, type: 2}
