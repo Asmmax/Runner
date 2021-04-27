@@ -2982,6 +2982,7 @@ MonoBehaviour:
   levelSettings: {fileID: 11400000, guid: cd30c24cd0c28834b80d47e0a4d4c3df, type: 2}
   localizationSettings: {fileID: 11400000, guid: e1fad8c8c3b1f8944a9b25cfbd51aef6,
     type: 2}
+  viewSettings: {fileID: 11400000, guid: 115b7b004b5c587499b3ee5dfd169898, type: 2}
 --- !u!114 &1129062411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4214,57 +4215,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1491368266}
-  - component: {fileID: 1491368265}
-  - component: {fileID: 1491368264}
   - component: {fileID: 1491368269}
   - component: {fileID: 1491368267}
   m_Layer: 0
-  m_Name: View
+  m_Name: ViewContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1491368264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1491368263}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e47e9361ae65b1a4eae062add5541df8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  viewGroups:
-  - name: camera
-    viewPrefab: {fileID: 8407775525416436576, guid: 5a5b2ad9ead17cd4d887d038f4ddfc2e,
-      type: 3}
-  - name: character
-    viewPrefab: {fileID: 9095723863174096128, guid: 28a784c2075469c4e81548bd75fc2b3a,
-      type: 3}
-  - name: bad
-    viewPrefab: {fileID: 1821751251588955576, guid: 4804de3ed62d8ed4db1325b8fceadd2a,
-      type: 3}
-  - name: good
-    viewPrefab: {fileID: 7577496749546564417, guid: bd523ce225fef5e47948e2b9786ec98b,
-      type: 3}
-  - name: life
-    viewPrefab: {fileID: 5386931032760540995, guid: b48e26a5abbf06042a4a473fdc3fb572,
-      type: 3}
---- !u!114 &1491368265
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1491368263}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cba0e194985434a47b77ff4c09b3ba3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1491368266
 Transform:
   m_ObjectHideFlags: 0
@@ -4292,13 +4251,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _components:
-  - {fileID: 1491368265}
-  - {fileID: 1491368264}
   - {fileID: 1491368269}
   _identifier: 
   _useSceneContext: 0
   _context: {fileID: 0}
-  _bindType: 2
+  _bindType: 1
 --- !u!114 &1491368269
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,26 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Services.Spawners;
+using Zenject;
 
-public class ViewGroupMapper : MonoBehaviour, IViewGroupMapper
+public class ViewGroupMapper : IInitializable, IViewGroupMapper
 {
-    [System.Serializable]
-    struct ViewGroupStruct
-    {
-        public string name;
-        public GameObject viewPrefab;
-    }
-
-    [SerializeField]
-    ViewGroupStruct[] viewGroups;
+    ViewSettings settings;
 
     IDictionary<string, ViewGroupStruct> viewMap = new Dictionary<string, ViewGroupStruct>();
 
-    private void Awake()
+    public ViewGroupMapper(ViewSettings settings)
     {
-        foreach(var viewGroup in viewGroups)
+        this.settings = settings;
+    }
+
+    public void Initialize()
+    {
+        foreach(var viewGroup in settings.viewGroups)
         {
             viewMap.Add(viewGroup.name, viewGroup);
         }

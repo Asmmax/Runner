@@ -1,10 +1,7 @@
 using Zenject;
-using System.Collections.Generic;
 using UnityEngine;
-using Core.Game;
 using Interactors;
 using Core.Level;
-using Services.Spawners;
 using Saves;
 using Services.Generators;
 
@@ -14,6 +11,8 @@ public class GameInstaller : MonoInstaller
     LevelSettings levelSettings;
     [SerializeField]
     LocalizationSettings localizationSettings;
+    [SerializeField]
+    ViewSettings viewSettings;
 
     public override void InstallBindings()
     {
@@ -26,6 +25,8 @@ public class GameInstaller : MonoInstaller
         Container.BindInterfacesTo<LevelContainer>().AsSingle().WithArguments(levelSettings);
         Container.BindInterfacesTo<TextLocalizationService>().AsSingle().WithArguments(localizationSettings);
 
+        Container.BindInterfacesAndSelfTo<ViewGroupMapper>().AsSingle().WithArguments(viewSettings);
+        Container.BindInterfacesAndSelfTo<UnityImageView>().AsSingle();
         Container.BindInterfacesAndSelfTo<GameController>().AsSingle();
         Container.BindInterfacesAndSelfTo<State>().AsSingle();
 

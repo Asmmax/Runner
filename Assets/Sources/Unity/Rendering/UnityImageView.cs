@@ -3,7 +3,7 @@ using UnityEngine;
 using Core.Game;
 using Core;
 
-public class UnityImageView : MonoBehaviour, IImageView
+public class UnityImageView : IImageView
 {
     ViewGroupMapper groupMapper;
 
@@ -12,15 +12,10 @@ public class UnityImageView : MonoBehaviour, IImageView
     IDictionary<int, float2> viewOldPositions = new Dictionary<int, float2>();
     IPool pool;
 
-    private void Awake()
-    {
-        groupMapper = GetComponent<ViewGroupMapper>();
-    }
-
-    [Zenject.Inject]
-    public void Init(IPool viewPool)
+    public UnityImageView(ViewGroupMapper groupMapper, IPool viewPool)
     {
         pool = viewPool;
+        this.groupMapper = groupMapper;
     }
 
     public void Hide(int[] ids)
